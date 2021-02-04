@@ -21,7 +21,63 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    Recipe.create({
+      title: 'The Ironhacker Long Island Ice Tea',
+      level: 'Easy Peasy',
+      ingredients: [
+        '1 spoon of vodka',
+        '1 spoon of rum',
+        '1 spoon of gin',
+        '1 spoon of tequila',
+        '1 spoon of triple sec',
+        '1 spoon of sweet and sour mix', 
+        'cola',
+        '1 lemon slice'
+      ],
+      cuisine: 'United States of America',
+      dishType: 'drink',
+      image: "https://tblakeraps.files.wordpress.com/2012/07/long-island-iced-tea.jpg?w=640&h=960",
+      duration: 10,
+      creator: 'Robert Butt',
+      created: 1970
+  
+    }).then((recipeFromDB) => {
+      console.log(`${recipeFromDB.title}`);
+      Recipe.insertMany(data).then((allRecipes) => {
+        allRecipes.forEach((recipe) => {
+          console.log(recipe.title); 
+        })
+        Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese"}, { $set: { duration: 100 }})
+        .then(() => {
+          console.log('Recipe sucessfully updated');
+
+          Recipe.deleteOne({ title: 'Carrot Cake'})
+            .then(() => {
+              console.log('Carrot Cake is no longer available');
+
+            });
+        }); 
+        mongoose.connection.close();
+      })
+      
+    })
   })
-  .catch(error => {
-    console.error('Error connecting to the database', error);
-  });
+    
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
